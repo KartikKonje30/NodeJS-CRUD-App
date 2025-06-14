@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar"
+import TableList from "./components/TableList"
 
 function App() {
 
@@ -6,6 +7,7 @@ function App() {
     <>
       <div className="font-medium text-[5vw] text-slate-500 dark:text-slate-200">
         <Navbar />
+        <TableList />
       </div>
     </>
   )
