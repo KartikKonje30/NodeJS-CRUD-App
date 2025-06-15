@@ -1,39 +1,84 @@
-export default function TableList() {
+
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+
+export default function TableList({ handleOpen }) {
+  
+  let clients = [
+    {
+      id: 1,
+      name: "Nikhil Bagwe",
+      email: "nikhil@gmail.com",
+      job: "Developer",
+      rate: "350",
+      isactive: true,
+    },
+    {
+      id: 2,
+      name: "Sumedh Shejwal",
+      email: "sumedh@gmail.com",
+      job: "Frontend",
+      rate: "120",
+      isactive: true,
+    },
+    {
+      id: 3,
+      name: "Yashraj Kotian",
+      email: "yashraj@gmail.com",
+      job: "Fullstack",
+      rate: "500",
+      isactive: false,
+    },
+  ];
+
   return (
     <>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto mt-10">
         <table className="table">
           {/* head */}
           <thead>
             <tr>
               <th></th>
               <th>Name</th>
+              <th>Email</th>
               <th>Job</th>
-              <th>Favorite Color</th>
+              <th>Rate</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
-            <tr className="hover:bg-base-300">
-              <th>1</th>
-              <td>Cy Ganderton</td>
-              <td>Quality Control Specialist</td>
-              <td>Blue</td>
-            </tr>
-            {/* row 2 */}
-            <tr className="hover:bg-base-300">
-              <th>2</th>
-              <td>Hart Hagerty</td>
-              <td>Desktop Support Technician</td>
-              <td>Purple</td>
-            </tr>
-            {/* row 3 */}
-            <tr className="hover:bg-base-300">
-              <th>3</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
+            {clients.map((client) => {
+              return (
+                <>
+                  <tr key={client.id} className="hover:bg-base-300">
+                    <th>{client.id}</th>
+                    <td>{client.name}</td>
+                    <td>{client.email}</td>
+                    <td>{client.job}</td>
+                    <td>{client.rate}</td>
+                    <td>
+                    <button className={` btn btn-rounded rounded-full w-20 ${client.isactive ? `btn-primary` : `btn-outline btn-primary`}`}>
+                      {client.isactive ? "Active" : "Inactive"}
+                    </button>
+                    </td>
+                    <td>
+                    <button 
+                    onClick={() => handleOpen("edit")}
+                    className="btn btn-secondary w-28 flex gap-2" >
+                      Update 
+                      <FaEdit className="w-4 h-4" />
+                    </button>
+                    </td>
+                    <td>
+                    <button className="btn btn-outline btn-error w-28 flex gap-2">
+                      Delete
+                      <MdDelete className="w-4 h-4" />
+                    </button>
+                    </td>
+                  </tr>
+                </>
+              );
+            })}
           </tbody>
         </table>
       </div>
