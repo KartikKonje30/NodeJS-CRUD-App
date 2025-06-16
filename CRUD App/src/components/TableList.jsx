@@ -49,7 +49,6 @@ export default function TableList({ handleOpen }) {
           <tbody>
             {clients.map((client) => {
               return (
-                <>
                   <tr key={client.id} className="hover:bg-base-300">
                     <th>{client.id}</th>
                     <td>{client.name}</td>
@@ -76,7 +75,6 @@ export default function TableList({ handleOpen }) {
                     </button>
                     </td>
                   </tr>
-                </>
               );
             })}
           </tbody>

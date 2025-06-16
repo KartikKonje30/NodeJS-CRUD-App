@@ -32,7 +32,7 @@ function App() {
         isOpen={isOpen} 
         mode={modalMode}
         OnSubmit={handleSubmit}
-        onClose={() => setIsOpen(false)} />
+        onClose={() => setIsOpen(!isOpen)} />
       </div>
     </>
   )
