@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function TableList({ handleOpen, searchTerm }) {
 
-  const [tableData, setTableSet] = useState([]);
+  const [tableData, setTableData] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -13,10 +13,10 @@ export default function TableList({ handleOpen, searchTerm }) {
     const fetchData = async() => {
       try{ 
         const response = await axios.get('http://localhost:3000/api/clients');
-        setTableSet(response.data);
+        setTableData(response.data);
 
       }catch(error){
-        console.log('Error Occured:', error);
+        setError(error.message);
       }
     };
 
@@ -30,32 +30,17 @@ export default function TableList({ handleOpen, searchTerm }) {
     client.job.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
-  // let clients = [
-  //   {
-  //     id: 1,
-  //     name: "Nikhil Bagwe",
-  //     email: "nikhil@gmail.com",
-  //     job: "Developer",
-  //     rate: "350",
-  //     isactive: true,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Sumedh Shejwal",
-  //     email: "sumedh@gmail.com",
-  //     job: "Frontend",
-  //     rate: "120",
-  //     isactive: true,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Yashraj Kotian",
-  //     email: "yashraj@gmail.com",
-  //     job: "Fullstack",
-  //     rate: "500",
-  //     isactive: false,
-  //   },
-  // ];
+  const handleDelete = async(id) => {
+   const confirmDelete = window.confirm("Are you sure you want to delete this client?");
+   if(confirmDelete){
+    try{
+        await axios.delete(`http://localhost:3000/api/clients/${id}`);
+        setTableData((prevTableData) => prevTableData.filter((client) => client !== id));
+    }catch(error){
+      setError(error.message)
+    }
+   }
+  }
 
   return (
     <>
@@ -105,7 +90,9 @@ export default function TableList({ handleOpen, searchTerm }) {
                     </button>
                   </td>
                   <td>
-                    <button className="btn btn-outline btn-error w-28 flex gap-2">
+                    <button 
+                    onClick={() => handleDelete(client.id)}
+                    className="btn btn-outline btn-error w-28 flex gap-2">
                       Delete
                       <MdDelete className="w-4 h-4" />
                     </button>
