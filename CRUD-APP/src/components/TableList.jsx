@@ -3,7 +3,7 @@ import { MdDelete } from "react-icons/md";
 import axios from 'axios';
 import { useEffect, useState } from "react";
 
-export default function TableList({ handleOpen }) {
+export default function TableList({ handleOpen, searchTerm }) {
 
   const [tableData, setTableSet] = useState([]);
   const [error, setError] = useState(null);
@@ -23,6 +23,12 @@ export default function TableList({ handleOpen }) {
     fetchData();
 
   },[]);
+
+  const filteredData = tableData.filter(client => 
+    client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    client.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    client.job.toLowerCase().includes(searchTerm.toLowerCase())
+  )
 
   // let clients = [
   //   {
@@ -70,7 +76,7 @@ export default function TableList({ handleOpen }) {
             </tr>
           </thead>
           <tbody>
-            {tableData.map((client) => {
+            {filteredData.map((client) => {
               return (
                 <tr key={client.id} className="hover:bg-base-300">
                   <th>{client.id}</th>

@@ -1,6 +1,11 @@
 import React from "react";
 
-function NavBar({ onOpen }) {
+function NavBar({ onOpen, onSearch }) {
+
+  const handleSearchChange = (event) => {
+    onSearch(event.target.value);
+  }
+
   return (
     <>
       <div className="navbar bg-base-100 shadow-sm">
@@ -28,6 +33,7 @@ function NavBar({ onOpen }) {
             <input
               type="search"
               className="grow w-[40vw]"
+              onChange={handleSearchChange}
               placeholder="Search"
             />
           </label>
