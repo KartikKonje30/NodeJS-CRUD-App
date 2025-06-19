@@ -8,39 +8,54 @@ export default function TableList({ handleOpen }) {
   const [tableData, setTableSet] = useState([]);
   const [error, setError] = useState(null);
 
-  useEffect(()=>{
-    
-  })
+  useEffect(() => {
 
-  let clients = [
-    {
-      id: 1,
-      name: "Nikhil Bagwe",
-      email: "nikhil@gmail.com",
-      job: "Developer",
-      rate: "350",
-      isactive: true,
-    },
-    {
-      id: 2,
-      name: "Sumedh Shejwal",
-      email: "sumedh@gmail.com",
-      job: "Frontend",
-      rate: "120",
-      isactive: true,
-    },
-    {
-      id: 3,
-      name: "Yashraj Kotian",
-      email: "yashraj@gmail.com",
-      job: "Fullstack",
-      rate: "500",
-      isactive: false,
-    },
-  ];
+    const fetchData = async() => {
+      try{ 
+        const response = await axios.get('http://localhost:3000/api/clients');
+        setTableSet(response.data);
+
+      }catch(error){
+        console.log('Error Occured:', error);
+      }
+    };
+
+    fetchData();
+
+  },[]);
+
+  // let clients = [
+  //   {
+  //     id: 1,
+  //     name: "Nikhil Bagwe",
+  //     email: "nikhil@gmail.com",
+  //     job: "Developer",
+  //     rate: "350",
+  //     isactive: true,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Sumedh Shejwal",
+  //     email: "sumedh@gmail.com",
+  //     job: "Frontend",
+  //     rate: "120",
+  //     isactive: true,
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Yashraj Kotian",
+  //     email: "yashraj@gmail.com",
+  //     job: "Fullstack",
+  //     rate: "500",
+  //     isactive: false,
+  //   },
+  // ];
 
   return (
     <>
+    {
+      error && <div className="alert alert-error">{error}</div>
+    }
       <div className="overflow-x-auto mt-10">
         <table className="table">
           {/* head */}
@@ -55,7 +70,7 @@ export default function TableList({ handleOpen }) {
             </tr>
           </thead>
           <tbody>
-            {clients.map((client) => {
+            {tableData.map((client) => {
               return (
                 <tr key={client.id} className="hover:bg-base-300">
                   <th>{client.id}</th>
