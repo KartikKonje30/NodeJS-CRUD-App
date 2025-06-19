@@ -97,7 +97,7 @@ export default function TableList({ handleOpen, searchTerm }) {
                   </td>
                   <td>
                     <button
-                      onClick={() => handleOpen("edit")}
+                      onClick={() => handleOpen("edit", client)}
                       className="btn btn-secondary w-28 flex gap-2"
                     >
                       Update
