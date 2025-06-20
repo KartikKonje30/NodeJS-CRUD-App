@@ -3,26 +3,9 @@ import { MdDelete } from "react-icons/md";
 import axios from 'axios';
 import { useEffect, useState } from "react";
 
-export default function TableList({ handleOpen, searchTerm }) {
+export default function TableList({ handleOpen, tableData, setTableData, searchTerm }) {
 
-  const [tableData, setTableData] = useState([]);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-
-    const fetchData = async() => {
-      try{ 
-        const response = await axios.get('http://localhost:3000/api/clients');
-        setTableData(response.data);
-
-      }catch(error){
-        setError(error.message);
-      }
-    };
-
-    fetchData();
-
-  },[]);
 
   const filteredData = tableData.filter(client => 
     client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -103,6 +86,7 @@ export default function TableList({ handleOpen, searchTerm }) {
           </tbody>
         </table>
       </div>
+          {filteredData.length < 1 ? <span className="alert alert-horizontal">No Clients Found!</span> : ""}
     </>
   );
 }
