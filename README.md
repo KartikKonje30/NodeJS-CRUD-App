@@ -93,7 +93,7 @@ This is a full-stack **CRUD (Create, Read, Update, Delete)** application I devel
 ### Backend
 
 ```bash
-cd crud-backend
+cd CRUD-Backend
 npm install
 node index.js
 ```
@@ -101,7 +101,7 @@ node index.js
 ### Frontend
 
 ```bash
-cd crud-frontend
+cd CRUD-APP
 npm install
 npm run dev
 ```
